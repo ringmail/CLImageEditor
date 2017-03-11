@@ -38,7 +38,7 @@ static NSString* const kCLAdjustmentToolContrastIconName = @"contrastIconAssetsN
     _originalImage = self.editor.imageView.image;
     _thumbnailImage = [_originalImage resize:self.editor.imageView.frame.size];
     
-    [self.editor fixZoomScaleWithAnimated:YES];
+    //[self.editor fixZoomScaleWithAnimated:YES];
     
     [self setupSlider];
 }

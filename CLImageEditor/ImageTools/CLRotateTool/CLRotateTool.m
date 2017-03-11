@@ -75,7 +75,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
 
     _fineRotationEnabled = [self.toolInfo.optionalInfo[kCLRotateToolFineRotationEnabled] boolValue];
 
-    [self.editor fixZoomScaleWithAnimated:YES];
+    //[self.editor fixZoomScaleWithAnimated:YES];
     
     _initialRect = self.editor.imageView.frame;
 
@@ -119,7 +119,7 @@ static NSString* const kCLRotateToolCropRotate = @"cropRotateEnabled";
     
     if(_executed){
         [self.editor resetZoomScaleWithAnimated:NO];
-        [self.editor fixZoomScaleWithAnimated:NO];
+        //[self.editor fixZoomScaleWithAnimated:NO];
         
         _rotateImageView.transform = CGAffineTransformIdentity;
         _rotateImageView.frame = self.editor.imageView.frame;

@@ -98,7 +98,7 @@ static NSString* const kCLClippingToolRatioTitleFormat = @"titleFormat";
 
 - (void)setup
 {
-    [self.editor fixZoomScaleWithAnimated:YES];
+    //[self.editor fixZoomScaleWithAnimated:YES];
     
     if(!self.toolInfo.optionalInfo){
         self.toolInfo.optionalInfo = [[self.class optionalInfo] mutableCopy];

@@ -79,21 +79,16 @@
 - (void)initNavigationBar
 {
     UIBarButtonItem *rightBarButtonItem = nil;
-    NSString *doneBtnTitle = [CLImageEditorTheme localizedString:@"CLImageEditor_DoneBtnTitle" withDefault:nil];
+    NSString *doneBtnTitle = @"Send";
     
-    if(![doneBtnTitle isEqualToString:@"CLImageEditor_DoneBtnTitle"]){
-        rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:doneBtnTitle style:UIBarButtonItemStyleDone target:self action:@selector(pushedFinishBtn:)];
-    }
-    else{
-        rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(pushedFinishBtn:)];
-    }
-    
+    rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:doneBtnTitle style:UIBarButtonItemStyleDone target:self action:@selector(pushedFinishBtn:)];
+	
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     
     if(_navigationBar==nil){
         UINavigationItem *navigationItem  = [[UINavigationItem alloc] init];
-        navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(pushedCloseBtn:)];
+        navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:@"Retake" style:UIBarButtonItemStylePlain target:self action:@selector(pushedCloseBtn:)];
         navigationItem.rightBarButtonItem = rightBarButtonItem;
         
         CGFloat dy = ([UIDevice iosVersion]<7) ? 0 : MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
@@ -120,9 +115,15 @@
         _navigationBar.topItem.title = self.title;
     }
     
-    if([UIDevice iosVersion] < 7){
+    /*if([UIDevice iosVersion] < 7){
         _navigationBar.barStyle = UIBarStyleBlackTranslucent;
-    }
+    }*/
+	
+	[_navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    _navigationBar.shadowImage = [UIImage new];
+    _navigationBar.translucent = YES;
+	_navigationBar.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.6];
+    self.navigationController.view.backgroundColor = [UIColor clearColor];
 }
 
 - (void)initMenuScrollView
@@ -151,6 +152,7 @@
         imageScroll.clipsToBounds = NO;
         
         CGFloat y = 0;
+		/*
         if(self.navigationController){
             if(self.navigationController.navigationBar.translucent){
                 y = self.navigationController.navigationBar.bottom;
@@ -160,9 +162,11 @@
         else{
             y = _navigationBar.bottom;
         }
+		*/
         
         imageScroll.top = y;
-        imageScroll.height = self.view.height - imageScroll.top - _menuView.height;
+        //imageScroll.height = self.view.height - imageScroll.top - _menuView.height;
+        imageScroll.height = self.view.height;
         
         [self.view insertSubview:imageScroll atIndex:0];
         _scrollView = imageScroll;
@@ -189,7 +193,8 @@
 {
     [super viewDidLoad];
     
-    self.title = self.toolInfo.title;
+    //self.title = self.toolInfo.title;
+    self.title = @"";
     self.view.clipsToBounds = YES;
     self.view.backgroundColor = self.theme.backgroundColor;
     self.navigationController.view.backgroundColor = self.view.backgroundColor;
@@ -390,7 +395,7 @@
 
 + (NSString*)defaultTitle
 {
-    return [CLImageEditorTheme localizedString:@"CLImageEditor_DefaultTitle" withDefault:@"Edit"];
+    return @"";
 }
 
 + (BOOL)isAvailable
@@ -458,8 +463,10 @@
 - (void)fixZoomScaleWithAnimated:(BOOL)animated
 {
     CGFloat minZoomScale = _scrollView.minimumZoomScale;
-    _scrollView.maximumZoomScale = 0.95*minZoomScale;
-    _scrollView.minimumZoomScale = 0.95*minZoomScale;
+    _scrollView.maximumZoomScale = minZoomScale;
+    _scrollView.maximumZoomScale = minZoomScale;
+    //_scrollView.minimumZoomScale = 0.95*minZoomScale;
+    //_scrollView.minimumZoomScale = 0.95*minZoomScale;
     [_scrollView setZoomScale:_scrollView.minimumZoomScale animated:animated];
 }
 
@@ -578,9 +585,9 @@
     [self swapNavigationBarWithEditting:editting];
     
     if(self.currentTool){
-        UINavigationItem *item  = [[UINavigationItem alloc] initWithTitle:self.currentTool.toolInfo.title];
-        item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[CLImageEditorTheme localizedString:@"CLImageEditor_OKBtnTitle" withDefault:@"OK"] style:UIBarButtonItemStyleDone target:self action:@selector(pushedDoneBtn:)];
-        item.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:[CLImageEditorTheme localizedString:@"CLImageEditor_BackBtnTitle" withDefault:@"Back"] style:UIBarButtonItemStylePlain target:self action:@selector(pushedCancelBtn:)];
+        UINavigationItem *item  = [[UINavigationItem alloc] initWithTitle:@""];
+        item.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStyleDone target:self action:@selector(pushedDoneBtn:)];
+        item.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(pushedCancelBtn:)];
         
         [_navigationBar pushNavigationItem:item animated:(self.navigationController==nil)];
     }

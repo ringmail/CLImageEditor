@@ -45,7 +45,7 @@
     _originalImage = self.editor.imageView.image;
     _thumbnailImage = [_originalImage resize:self.editor.imageView.frame.size];
     
-    [self.editor fixZoomScaleWithAnimated:YES];
+    //[self.editor fixZoomScaleWithAnimated:YES];
     
     _menuScroll = [[UIScrollView alloc] initWithFrame:self.editor.menuView.frame];
     _menuScroll.backgroundColor = self.editor.menuView.backgroundColor;
