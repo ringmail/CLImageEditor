@@ -72,16 +72,19 @@ static NSString* const kCLStickerToolDeleteIconName = @"deleteIconAssetsName";
     _originalImage = self.editor.imageView.image;
     
     //[self.editor fixZoomScaleWithAnimated:YES];
-    
+	
+	CGRect frame = [self.editor.view convertRect:self.editor.imageView.frame fromView:self.editor.imageView.superview];
+	frame.size.height = frame.size.height - 40;
+	frame.origin.y = 40;
+    _workingView = [[UIView alloc] initWithFrame:frame];
+    _workingView.clipsToBounds = YES;
+    [self.editor.view addSubview:_workingView];
+	
     _menuScroll = [[UIScrollView alloc] initWithFrame:self.editor.menuView.frame];
     _menuScroll.backgroundColor = self.editor.menuView.backgroundColor;
     _menuScroll.showsHorizontalScrollIndicator = NO;
     [self.editor.view addSubview:_menuScroll];
-    
-    _workingView = [[UIView alloc] initWithFrame:[self.editor.view convertRect:self.editor.imageView.frame fromView:self.editor.imageView.superview]];
-    _workingView.clipsToBounds = YES;
-    [self.editor.view addSubview:_workingView];
-    
+
     [self setStickerMenu];
     
     _menuScroll.transform = CGAffineTransformMakeTranslation(0, self.editor.view.height-_menuScroll.top);
@@ -181,6 +184,7 @@ static NSString* const kCLStickerToolDeleteIconName = @"deleteIconAssetsName";
     
     CGFloat scale = image.size.width / _workingView.width;
     CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale, scale);
+	CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0, 40);
     [_workingView.layer renderInContext:UIGraphicsGetCurrentContext()];
     
     UIImage *tmp = UIGraphicsGetImageFromCurrentImageContext();

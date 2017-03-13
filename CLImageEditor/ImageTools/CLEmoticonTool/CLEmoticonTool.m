@@ -180,11 +180,12 @@ static NSString* const kCLEmoticonToolDeleteIconName = @"deleteIconAssetsName";
 - (UIImage*)buildImage:(UIImage*)image
 {
     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-    
+	
     [image drawAtPoint:CGPointZero];
     
     CGFloat scale = image.size.width / _workingView.width;
     CGContextScaleCTM(UIGraphicsGetCurrentContext(), scale, scale);
+	CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0, 40);
     [_workingView.layer renderInContext:UIGraphicsGetCurrentContext()];
     
     UIImage *tmp = UIGraphicsGetImageFromCurrentImageContext();
