@@ -231,7 +231,7 @@
     [super viewWillAppear:animated];
     
     if(self.targetImageView){
-        [self expropriateImageView];
+        //[self expropriateImageView];
     }
     else{
         [self refreshImageView];
@@ -306,14 +306,14 @@
     if(!canceled){
         self.targetImageView.image = _imageView.image;
     }
-    self.targetImageView.hidden = YES;
+//    self.targetImageView.hidden = YES;
     
     id<CLImageEditorTransitionDelegate> delegate = [self transitionDelegate];
     if([delegate respondsToSelector:@selector(imageEditor:willDismissWithImageView:canceled:)]){
         [delegate imageEditor:self willDismissWithImageView:self.targetImageView canceled:canceled];
     }
     
-    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+/*    UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
     
     UIImageView *animateView = [UIImageView new];
     [window addSubview:animateView];
@@ -351,13 +351,13 @@
                          [self removeFromParentViewController];
                          
                          _imageView.hidden = NO;
-                         self.targetImageView.hidden = NO;
+                         self.targetImageView.hidden = NO;*/
                          
                          if([delegate respondsToSelector:@selector(imageEditor:didDismissWithImageView:canceled:)]){
                              [delegate imageEditor:self didDismissWithImageView:self.targetImageView canceled:canceled];
                          }
-                     }
-     ];
+                     /*}
+     ];*/
 }
 
 #pragma mark- Properties
