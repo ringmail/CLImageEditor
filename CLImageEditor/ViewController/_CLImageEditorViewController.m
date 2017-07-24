@@ -79,7 +79,15 @@
 - (void)initNavigationBar
 {
     UIBarButtonItem *rightBarButtonItem = nil;
-    NSString *doneBtnTitle = @"Send";
+    NSString *doneBtnTitle = @"Attach";
+	if (self.editMode == RgSendMediaEditModeMoment)
+	{
+		doneBtnTitle = @"Next";
+	}
+	else if (self.editMode == RgSendMediaEditModeMessage)
+	{
+		doneBtnTitle = @"Send";
+	}
     
     rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:doneBtnTitle style:UIBarButtonItemStyleDone target:self action:@selector(pushedFinishBtn:)];
 	
@@ -88,12 +96,12 @@
     
     if(_navigationBar==nil){
         UINavigationItem *navigationItem  = [[UINavigationItem alloc] init];
-        navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:@"Retake" style:UIBarButtonItemStylePlain target:self action:@selector(pushedCloseBtn:)];
+        navigationItem.leftBarButtonItem  = [[UIBarButtonItem alloc] initWithTitle:@"Retake" style:UIBarButtonItemStyleDone target:self action:@selector(pushedCloseBtn:)];
         navigationItem.rightBarButtonItem = rightBarButtonItem;
         
         CGFloat dy = ([UIDevice iosVersion]<7) ? 0 : MIN([UIApplication sharedApplication].statusBarFrame.size.height, [UIApplication sharedApplication].statusBarFrame.size.width);
         
-        UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, dy, self.view.width, 44)];
+        UINavigationBar *navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, dy, self.view.width, 60)];
         [navigationBar pushNavigationItem:navigationItem animated:NO];
         navigationBar.delegate = self;
         

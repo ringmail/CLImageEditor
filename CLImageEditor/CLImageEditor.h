@@ -9,6 +9,7 @@
 
 #import "CLImageToolInfo.h"
 #import "CLImageEditorTheme.h"
+#import "RgManager.h"
 
 @protocol CLImageEditorDelegate;
 @protocol CLImageEditorTransitionDelegate;
@@ -20,6 +21,7 @@
 @property (nonatomic, weak) id<CLImageEditorDelegate> delegate;
 @property (nonatomic, readonly) CLImageEditorTheme *theme;
 @property (nonatomic, readonly) CLImageToolInfo *toolInfo;
+@property (nonatomic) RgSendMediaEditMode editMode;
 
 - (id)initWithImage:(UIImage*)image;
 - (id)initWithImage:(UIImage*)image delegate:(id<CLImageEditorDelegate>)delegate;

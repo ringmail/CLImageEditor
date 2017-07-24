@@ -16,6 +16,8 @@
 
 @implementation CLImageEditor
 
+@synthesize editMode;
+
 - (id)init
 {
     return [_CLImageEditorViewController new];
